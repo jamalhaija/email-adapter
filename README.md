@@ -1,5 +1,5 @@
 # Email Adapter
-A simple wrapper for transactional email service. The target library is SparkPost, but the API can be substituted and the `send()` method modified to fit the API of the library. However, the implementation can remain the same as the class exposes a simple set of methods:
+A simple wrapper for transactional email service. The target library is SparkPost, but it can be substituted and the `send()` method modified to fit the API of any other library. However, the implementation can remain the same as EmailAdapter exposes a simple set of methods:
 
 ```
 setFrom($from)/getFrom() : The From email header field
@@ -15,7 +15,7 @@ send() : Send the email
 Here's an example of how to use Sparkpost in conjunction with this adapter:
 
 ```php
-//Dependencies are explicitly stated, but autoloading can be used in reality
+//Dependencies
 use SparkPost\SparkPost;
 use GuzzleHttp\Client;
 use Ivory\HttpAdapter\Guzzle6HttpAdapter;
@@ -31,7 +31,9 @@ $email = new EmailAdapter($apiObj);
 $email->setFrom('sender@example.com');
 $email->setSubject('Hello World!');
 $email->setBody('<html><body><p>This is an HTML email.</p></body></html>');
-$email->setRecepients(['email1@example.com', 'email2@example.com', 'email3@example.com']);
+
+//Add recepients
+$email->addRecepients(['email1@example.com', 'email2@example.com', 'email3@example.com']);
 
 //Send away
 $email->send();
